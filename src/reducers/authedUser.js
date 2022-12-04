@@ -7,11 +7,11 @@ import {
 export default function authedUser(state = null, action) {
   switch(action.type) {
       case RECEIVE_AUTHED_USER:
-        return state;
+        return action.id ?? state;
       case SET_AUTHED_USER:
         return action.id;
       case REMOVE_AUTHED_USER:
-        return action.id;
+        return null;
       default:
         return state;
   }

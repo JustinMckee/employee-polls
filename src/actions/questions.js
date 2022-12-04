@@ -1,8 +1,5 @@
-//import {saveQuestion, saveQuestionAnswer} from '../utils/api';
-//import {showLoading, hideLoading} from 'react-redux-loading-bar';
-
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
-// export const ADD_QUESTIONS = 'ADD_QUESTIONS';
+export const ANSWER_QUESTION = 'ANSWER_QUESTION';
 // export const ANSWER_QUESTION = 'ANSWER_QUESTION';
 
 export function receiveQuestions(questions) {
@@ -32,21 +29,3 @@ export function receiveQuestions(questions) {
 //   }
 // }
 //
-// export function answerQuestion(answer) {
-//   return {
-//     type: ANSWER_QUESTION,
-//     answer,
-//   }
-// }
-//
-// export function handleAnswerQuestion(answer) {
-//   return (dispatch, getState) => {
-//     dispatch(answerQuestion(answer));
-//
-//     return saveQuestionAnswer(answer).catch(e) => {
-//       console.warn('Error in handleAnswerQuestion', e);
-//       dispatch(receieveQuestions());
-//       alert('There was an error answering the question.');
-//     }
-//   }
-// }

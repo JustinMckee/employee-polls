@@ -1,0 +1,17 @@
+.card-button {
+  position: relative;
+  cursor: pointer;
+  opacity: 0.6;
+  &:hover {
+    opacity: 1;
+    background-color: aliceblue;
+    &:after {
+      visibility: visible;
+    }
+  }
+  &[data-selected="true"] {
+    opacity: 1;
+    background-color:  darken(aliceblue, 4%);
+    cursor: default;
+  }
+}

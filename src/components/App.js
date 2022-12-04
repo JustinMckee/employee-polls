@@ -14,6 +14,7 @@ import Dashboard from './Dashboard';
 import Leaderboard from './Leaderboard';
 import Create from './Create';
 import Login from './Login';
+import Question from './Question';
 
 const App = (props) => {
 
@@ -26,34 +27,38 @@ const App = (props) => {
 
       <LoadingBar />
 
-      <header className="App-header">
-        <Navigation />
-      </header>
-
-      <Container>
+        {console.log('AUTHED',props.authedUser)}
         {
-          props.loading === false && (
+          !props.authedUser && (
             <Login />
           )
         }
         {
-          props.loading === true && (
-            <Routes>
-              <Route path="/" exact element={<Dashboard />} />
-              <Route path="/Leaderboard" element={<Leaderboard />} />
-              <Route path="/new" element={<Create />} />
-              <Route path="/login" element={<Login />} />
-            </Routes>
+          props.authedUser && (
+            <>
+              <header className="App-header">
+                <Navigation />
+              </header>
+              <Container>
+                <Routes>
+                  <Route path="/" state={props} exact element={<Dashboard />} />
+                  <Route path="/Leaderboard" element={<Leaderboard />} />
+                  <Route path="/questions/:id" element={<Question />} />
+                  <Route path="/new" element={<Create />} />
+                  <Route path="/login" element={<Login />} />
+                </Routes>
+              </Container>
+            </>
           )
         }
-      </Container>
     </div>
   );
 }
 
 const mapStateToProps = ({authedUser, users}) => (
   {
-    loading: authedUser !== null
+    loading: authedUser !== null,
+    authedUser
   }
 )
 

@@ -50,7 +50,7 @@ const Login = ({dispatch,authedUser}) => {
       sx={{
         width: '100%',
         maxWidth: '500px',
-        margin: '0 auto',
+        margin: '3em auto',
       }}
       >
 

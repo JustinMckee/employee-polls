@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import { styled } from '@mui/material/styles';
 import './Navigation.scss';
+import {Link} from "react-router-dom";
 
 // Design system
 import List from '@mui/material/List';
@@ -12,6 +13,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import Divider from '@mui/material/Divider';
+import Box from '@mui/material/Box';
 
 // My Components
 import User from '../User';
@@ -53,7 +55,7 @@ const Navigation = () => {
   }));
 
   return (
-    <nav>
+    <Box component="nav" sx={{ padding: '.5em', borderBottom: '1px solid #EFEFEF' }}>
       <div className="utility">
         <IconButton onClick={toggleDrawer(true)}>
           <MenuOpenIcon />
@@ -75,7 +77,7 @@ const Navigation = () => {
           {links.map((link, index) => (
             <ListItem key={link.text} disablePadding>
 
-                <ListItemButton to={link.to}>
+                <ListItemButton component={Link} to={link.to}>
 
                     <ListItemText primary={link.text} />
 
@@ -85,7 +87,7 @@ const Navigation = () => {
           ))}
         </List>
       </Drawer>
-    </nav>
+    </Box>
   )
 }
 
