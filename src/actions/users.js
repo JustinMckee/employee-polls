@@ -22,12 +22,16 @@ export function answerQuestion(authedUser, qid, answer) {
 
 export function handleAnswerQuestion(authedUser, qid, answer) {
   return (dispatch, getState) => {
+    dispatch(showLoading());
     dispatch(answerQuestion(authedUser, qid, answer));
 
-    return saveQuestionAnswer(authedUser, qid, answer).catch((e) => {
+    return saveQuestionAnswer(authedUser, qid, answer)
+    .then(() => dispatch(hideLoading()))
+    .catch((e) => {
       console.warn('Error in handleAnswerQuestion', e);
       // dispatch(receieveQuestions());
       alert('There was an error answering the question.');
-    })
+    });
+    
   }
 }
