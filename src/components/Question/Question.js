@@ -15,23 +15,19 @@ import './Question.scss';
 
 const Question = ({authedUser,dispatch}) => {
 
-  //console.log('AUthed', authedUser);
-
   const [answer,setAnswer] = useState('');
 
   const location = useLocation();
 
+  const navigate = useNavigate();
+
   const handleClick = (event) => {
     let fauxInput = event.target.closest('.card-button');
-    //console.log(fauxInput.dataset.id,fauxInput.dataset.answer);
     let qid = fauxInput.dataset.id;
-    let autheUser = authedUser;
     let answer = fauxInput.dataset.answer;
     setAnswer(fauxInput.dataset.answer);
-    dispatch(handleAnswerQuestion(authedUser,qid,answer));
+    dispatch(handleAnswerQuestion(authedUser,qid,answer)).then(() => navigate('/'));
   }
-
-  // console.log('QUESTION', location);
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
