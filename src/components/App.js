@@ -15,6 +15,7 @@ import Leaderboard from './Leaderboard';
 import Create from './Create';
 import Login from './Login';
 import Question from './Question';
+import NotFound from './NotFound';
 
 const App = (props) => {
 
@@ -26,11 +27,15 @@ const App = (props) => {
     <div className="App">
 
       <LoadingBar />
-
-        {console.log('AUTHED',props.authedUser)}
         {
           !props.authedUser && (
-            <Login />
+            <Container>
+              <Routes>
+                <Route path="*" element={<NotFound />} />
+                <Route path="/" exact element={<Login />} />
+                <Route path="/login" exact element={<Login />} />
+              </Routes>
+            </Container>
           )
         }
         {
@@ -41,10 +46,11 @@ const App = (props) => {
               </header>
               <Container>
                 <Routes>
+                  <Route path="*" state={props} element={<NotFound />} />
                   <Route path="/" state={props} exact element={<Dashboard />} />
-                  <Route path="/Leaderboard" element={<Leaderboard />} />
+                  <Route path="/Leaderboard" exact element={<Leaderboard />} />
                   <Route path="/questions/:id" element={<Question />} />
-                  <Route path="/new" element={<Create />} />
+                  <Route path="/new" exact element={<Create />} />
                   <Route path="/login" element={<Login />} />
                 </Routes>
               </Container>

@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {handleSetAuthedUser} from '../../actions/authedUser';
 import {connect} from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
 // Design system
 import Box from '@mui/material/Box';
@@ -27,13 +28,15 @@ const Login = ({dispatch,authedUser}) => {
     })
   }
 
-  // TODO this isn't what a promise is supposed to look like.
-  const handleSubmit = (e) => new Promise ((res, rej) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(handleSetAuthedUser(fields));
-
-    // TODO handle wrong username/password
-  })
+    try {
+      const result = await dispatch(handleSetAuthedUser(fields));
+      console.log('LOGGED IN', authedUser);
+    } catch (e) {
+      console.error('ERROR', e);
+    }
+  }
 
   const handleAutoFill = (e) => {
     e.preventDefault();
@@ -44,51 +47,67 @@ const Login = ({dispatch,authedUser}) => {
   }
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit}
-      sx={{
-        width: '100%',
-        maxWidth: '500px',
-        margin: '3em auto',
-      }}
-      >
+    <>
+      {authedUser && (
+         <Navigate to="/" />
+      )}
 
-      <Stack spacing={2}>
-        <Logo />
-        <TextField
-          required
-          id="outlined-required"
-          type="text"
-          name="username"
-          value={fields.username}
-          label="Username"
-          onChange={handleChange}
-          fullwidth="true"
-          />
-        <TextField
-          required
-          id="outlined-password-input"
-          name="password"
-          type="password"
-          value={fields.password}
-          label="Password"
-          onChange={handleChange}
-          fullwidth="true"
-          />
-        <Button
-          className="btn"
-          type="submit"
-          disabled={(fields.password === '')}
-          variant="contained"
-          size="large"
-          >
-          LOGIN
-          </Button>
-          <Button size="small" onClick={handleAutoFill} >Autofill</Button>
-        </Stack>
-    </Box>
+      {
+        !authedUser && (
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            sx={{
+              width: '100%',
+              maxWidth: '500px',
+              margin: '3em auto',
+            }}
+            >
+
+            <Stack spacing={2}>
+              <Logo />
+              <TextField
+                required
+                id="outlined-required"
+                type="text"
+                name="username"
+                value={fields.username}
+                label="Username"
+                onChange={handleChange}
+                fullwidth="true"
+                />
+              <TextField
+                required
+                id="outlined-password-input"
+                name="password"
+                type="password"
+                value={fields.password}
+                label="Password"
+                onChange={handleChange}
+                fullwidth="true"
+                />
+              <Button
+                className="btn"
+                type="submit"
+                disabled={(fields.password === '')}
+                variant="contained"
+                size="large"
+                >
+                LOGIN
+                </Button>
+                <Button size="small" onClick={handleAutoFill} >Autofill</Button>
+              </Stack>
+          </Box>
+        )}
+    </>
+    
   )
 }
 
-export default connect()(Login);
+const mapStateToProps = ({authedUser}) => (
+  {
+    authedUser,
+  }
+)
+
+export default connect(mapStateToProps)(Login);
