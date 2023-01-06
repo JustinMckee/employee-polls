@@ -1,4 +1,4 @@
-import {RECEIVE_USERS,ANSWER_QUESTION} from '../actions/users';
+import {RECEIVE_USERS,UPDATE_USER_ANSWERS} from '../actions/users';
 
 export default function users(state = {}, action) {
   switch(action.type) {
@@ -7,12 +7,15 @@ export default function users(state = {}, action) {
         ...state,
         ...action.users,
       };
-    case ANSWER_QUESTION:
+    case UPDATE_USER_ANSWERS:
       return {
         ...state,
         [action.authedUser]: {
           ...state[action.authedUser],
-          answers: Object.assign(state[action.authedUser].answers, {[action.qid]:action.answer})
+          answers: {
+            ...state[action.authedUser].answers,
+            [action.qid]: action.answer,
+          }
         }
       }
     default:

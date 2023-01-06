@@ -1,7 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import {handleAnswerQuestion} from '../../actions/users';
-import {useNavigate} from 'react-router-dom';
+import {handleAnswerQuestion} from '../../actions/questions'
 import {connect} from 'react-redux';
 
 import Avatar from '@mui/material/Avatar';
@@ -13,7 +12,7 @@ import { styled } from '@mui/material/styles';
 
 import './Question.scss';
 
-const Question = ({authedUser,dispatch}) => {
+const Question = ({authedUser,dispatch,questions}) => {
 
   //console.log('AUthed', authedUser);
 
@@ -21,11 +20,10 @@ const Question = ({authedUser,dispatch}) => {
 
   const location = useLocation();
 
-  const handleClick = (event) => {
+  const handleClick = async (event) => {
     let fauxInput = event.target.closest('.card-button');
     //console.log(fauxInput.dataset.id,fauxInput.dataset.answer);
     let qid = fauxInput.dataset.id;
-    let autheUser = authedUser;
     let answer = fauxInput.dataset.answer;
     setAnswer(fauxInput.dataset.answer);
     dispatch(handleAnswerQuestion(authedUser,qid,answer));

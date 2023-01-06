@@ -1,8 +1,5 @@
-import {saveQuestionAnswer} from '../utils/api';
-import {showLoading, hideLoading} from 'react-redux-loading-bar';
-
 export const RECEIVE_USERS = 'RECEIVE_USERS';
-export const ANSWER_QUESTION = 'ANSWER_QUESTION';
+export const UPDATE_USER_ANSWERS = 'UPDATE_USER_ANSWERS';
 
 export function receiveUsers(users) {
   return {
@@ -11,23 +8,12 @@ export function receiveUsers(users) {
   }
 };
 
-export function answerQuestion(authedUser, qid, answer) {
+export function updateUserAnswers(authedUser, qid, answer) {
+  console.log('ANSWER',answer)
   return {
-    type: ANSWER_QUESTION,
+    type: UPDATE_USER_ANSWERS,
     authedUser,
     qid,
-    answer
-  }
-}
-
-export function handleAnswerQuestion(authedUser, qid, answer) {
-  return (dispatch, getState) => {
-    dispatch(answerQuestion(authedUser, qid, answer));
-
-    return saveQuestionAnswer(authedUser, qid, answer).catch((e) => {
-      console.warn('Error in handleAnswerQuestion', e);
-      // dispatch(receieveQuestions());
-      alert('There was an error answering the question.');
-    })
+    answer,
   }
 }
