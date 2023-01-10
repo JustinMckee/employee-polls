@@ -31,9 +31,7 @@ const App = (props) => {
           !props.authedUser && (
             <Container>
               <Routes>
-                <Route path="*" element={<NotFound />} />
-                <Route path="/" exact element={<Login />} />
-                <Route path="/login" exact element={<Login />} />
+                <Route path="*" state={props} element={<Login />} />
               </Routes>
             </Container>
           )
@@ -49,8 +47,8 @@ const App = (props) => {
                   <Route path="*" state={props} element={<NotFound />} />
                   <Route path="/" state={props} exact element={<Dashboard />} />
                   <Route path="/Leaderboard" exact element={<Leaderboard />} />
-                  <Route path="/questions/:id" element={<Question />} />
-                  <Route path="/new" exact element={<Create />} />
+                  <Route path="/questions/:id" element={<Question/>} />
+                  <Route path="/add" exact element={<Create />} />
                   <Route path="/login" element={<Login />} />
                 </Routes>
               </Container>

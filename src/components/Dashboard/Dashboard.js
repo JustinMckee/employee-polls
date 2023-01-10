@@ -23,6 +23,13 @@ const Dashboard = ({users,questions,authedUser}) => {
     setValue(newValue);
   };
 
+  const newQuestions = Object.keys(questions)
+    .filter((q) => {
+      return !(q in users[authedUser].answers);
+    }).length;
+
+  const answeredQuestions = users[authedUser].answers.length;
+
   return (
     <div>
       <h1>Polls by {users[authedUser].name}</h1>
@@ -40,16 +47,30 @@ const Dashboard = ({users,questions,authedUser}) => {
           </Box>
 
           <TabPanel value={value} index={0}>
+
+            {newQuestions === 0 && (
+              'You have no polls to answer.'
+            )}
+
             <List sx={{ width: '100%' }}>
               {
-                Object.keys(questions)
+                Object.values(questions)
                 .filter((q) => {
-                  return !(q in users[authedUser].answers);
+                  return !(q.id in users[authedUser].answers);
+                })
+                .sort((a,b) => {
+                  if(a.timestamp > b.timestamp) {
+                    return -1
+                  }
+                  if(a.timestamp < b.timestamp){
+                    return 1
+                  }
+                  return 0;
                 })
                 .map((q, index) => (
                   <>
-                    <ListItem alignItems="flex-start" key={index}>
-                      <NewQuestion question={questions[q]} />
+                    <ListItem alignItems="flex-start" id={q.id} key={q.id}>
+                      <NewQuestion question={q} />
                     </ListItem>
                     <Divider variant="inset" component="li" />
                   </>
@@ -59,13 +80,30 @@ const Dashboard = ({users,questions,authedUser}) => {
           </TabPanel>
 
           <TabPanel value={value} index={1}>
+
+            {answeredQuestions === 0 && (
+                'You have no history to display.'
+              )}
+
             <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
               {
                 Object.keys(users[authedUser].answers)
+                .sort((a,b) => {
+                  if(questions[a].timestamp > questions[b].timestamp) {
+                    return -1
+                  }
+                  if(questions[a].timestamp < questions[b].timestamp){
+                    return 1
+                  }
+                  return 0;
+                })
                 .map((a, index) => (
-                  <ListItem alignItems="flex-start" key={index}>
-                    <Answered answered={questions[a]} />
-                  </ListItem>
+                  <>
+                    <ListItem alignItems="flex-start" id={a} key={a}>
+                      <Answered answer={questions[a]} />
+                    </ListItem>
+                    <Divider variant="inset" component="li" />
+                  </>
                 ))
               }
             </List>

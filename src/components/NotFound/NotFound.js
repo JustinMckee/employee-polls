@@ -15,7 +15,7 @@ const NotFound = () => {
         >
             <h1>404</h1>
             <p>The page you are looking for cannot be found.</p>
-            <Link className="link" to="/login">Login</Link>
+            <Link className="link" to="/">Home</Link>
         </Box>
     )
 }

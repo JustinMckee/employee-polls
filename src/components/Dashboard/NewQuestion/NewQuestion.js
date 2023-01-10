@@ -24,16 +24,18 @@ const NewQuestion = ({questions,question,users}) => {
         <Avatar alt="Remy Sharp" src={users[questions[question.id].author].avatarURL} />
       </ListItemAvatar>
       <ListItemText
-        primary="Would you rather&hellip;"
+        primary={
+          <h1 style={{margin: '0 0 .3em', fontSize: '1.3em'}}>Would you rather&hellip;</h1>
+        }
         secondary={
           <>
             <Typography
               sx={{ display: 'inline' }}
               component="span"
               variant="body2"
-              color="text.primary"
+              color="text.light"
               >
-              {users[questions[question.id].author].name}
+              By {users[questions[question.id].author].name}
             </Typography>
             &nbsp;&mdash;&nbsp;{questions[question.id].optionOne['text'] +" OR "+ questions[question.id].optionTwo['text']}
           </>

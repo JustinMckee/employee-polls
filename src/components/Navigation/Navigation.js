@@ -35,7 +35,7 @@ const Navigation = () => {
     },
     {
       'text': 'Create',
-      'to': '/new',
+      'to': '/add',
     }
   ]
 
@@ -75,7 +75,7 @@ const Navigation = () => {
         <Divider />
         <List>
           {links.map((link, index) => (
-            <ListItem key={link.text} disablePadding>
+            <ListItem key={link.text} id={link.text} sx={{minWidth:'400px'}} disablePadding>
 
                 <ListItemButton component={Link} to={link.to}>
 

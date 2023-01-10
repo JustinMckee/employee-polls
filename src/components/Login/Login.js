@@ -32,7 +32,6 @@ const Login = ({dispatch,authedUser}) => {
     e.preventDefault();
     try {
       const result = await dispatch(handleSetAuthedUser(fields));
-      console.log('LOGGED IN', authedUser);
     } catch (e) {
       console.error('ERROR', e);
     }

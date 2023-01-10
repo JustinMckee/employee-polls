@@ -7,7 +7,7 @@ import {
 
 // Mimic reaching out to server for authentication instead of relying on users state slice.
 export function login (fields) {
-  return new Promise((res, rej) => {
+  return new Promise((res) => {
     res(_getUsers())
   }).then((users) => {
     if(!users[fields.username]) {
@@ -31,7 +31,9 @@ export function getInitialData () {
 };
 
 export function saveQuestion (question) {
-  return _saveQuestion(question);
+  return new Promise((res) => {
+    res(_saveQuestion(question));
+  })
 }
 
 export function saveQuestionAnswer (authedUser, qid, answer) {

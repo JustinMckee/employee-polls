@@ -2,6 +2,9 @@ import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import {handleAnswerQuestion} from '../../actions/questions'
 import {connect} from 'react-redux';
+import Percentage from '../Percentage';
+import {useParams,redirect} from 'react-router-dom';
+import NotFound from '../NotFound';
 
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -12,18 +15,30 @@ import { styled } from '@mui/material/styles';
 
 import './Question.scss';
 
-const Question = ({authedUser,dispatch}) => {
+const Question = ({authedUser,dispatch,questions}) => {
 
   const [answer,setAnswer] = useState('');
 
   const location = useLocation();
 
+  const params = useParams();
+
+  if(!questions[params.id]) {
+    return (
+      <NotFound />
+    )
+  }
+
+  const totalVotes = questions[location.state.question.id].optionOne.votes.length + questions[location.state.question.id].optionTwo.votes.length;
+
   const handleClick = (event) => {
     let fauxInput = event.target.closest('.card-button');
     let qid = fauxInput.dataset.id;
     let answer = fauxInput.dataset.answer;
-    setAnswer(fauxInput.dataset.answer);
-    dispatch(handleAnswerQuestion(authedUser,qid,answer));
+    setTimeout(() => {
+      setAnswer(fauxInput.dataset.answer);
+      dispatch(handleAnswerQuestion(authedUser,qid,answer));
+    }, 200)
   }
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -60,7 +75,9 @@ const Question = ({authedUser,dispatch}) => {
               padding: 0,
               display: 'block',
               width: '100%',
-              }}>
+              }}
+              disabled={(answer !== '') ? true : false}
+              >
               <Item
                 className="card-button"
                 data-id={location.state.question.id}
@@ -71,13 +88,22 @@ const Question = ({authedUser,dispatch}) => {
                 <h2>{location.state.question.optionOne.text.charAt(0).toUpperCase() + location.state.question.optionOne.text.slice(1)}</h2>
               </Item>
             </Button>
+            {answer && (
+              <div style={{marginTop:'1.5em'}}>
+                 <Percentage 
+                  qid={location.state.question.id} option='optionOne'
+                />
+              </div>
+            )}
           </Grid>
           <Grid item xs={6}>
             <Button sx={{
               padding: 0,
               display: 'block',
               width: '100%',
-              }}>
+              }}
+              disabled={(answer !== '') ? true : false}
+              >
               <Item
                 className="card-button"
                 data-id={location.state.question.id}
@@ -88,11 +114,19 @@ const Question = ({authedUser,dispatch}) => {
                 <h2>{location.state.question.optionTwo.text.charAt(0).toUpperCase() + location.state.question.optionTwo.text.slice(1)}</h2>
               </Item>
             </Button>
+            {answer && (
+              <div style={{marginTop:'1.5em'}}>
+                <Percentage qid={location.state.question.id} option='optionTwo' />
+              </div>
+            )}
           </Grid>
         </Grid>
 
       }
       </form>
+
+      
+
     </div>
   )
 }
@@ -101,6 +135,7 @@ const mapStateToProps = ({authedUser,questions,users}) => (
   {
     loading: authedUser !== null,
     authedUser,
+    questions
   }
 );
 

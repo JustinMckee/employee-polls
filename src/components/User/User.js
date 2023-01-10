@@ -55,8 +55,8 @@ const User = ({dispatch,authedUser,users}) => {
             'aria-labelledby': 'basic-button',
           }}
           >
-          <MenuItem to={'/test'} onClick={() => (navigate('/'))}>Dashboard</MenuItem>
-          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          <MenuItem id="1" to={'/test'} onClick={() => (navigate('/'))}>Dashboard</MenuItem>
+          <MenuItem id="2" onClick={handleLogout}>Logout</MenuItem>
         </Menu>
       </Stack>
     )
