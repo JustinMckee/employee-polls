@@ -17,10 +17,17 @@ const Leaderboard = ({users}) => {
       <List sx={{ width: '100%' }}>
         {
           Object.entries(users).sort((a,b) => {
-            return (
-              (Object.keys(a[1].answers).length + a[1].questions.length) 
-              + (Object.keys(b[1].answers).length + b[1].questions.length)
-              ) 
+            const totalA = Object.keys(a[1].answers).length + a[1].questions.length;
+            const totalB = Object.keys(b[1].answers).length + b[1].questions.length;
+            if(totalA < totalB) {
+              return 1
+            }
+            if(totalA > totalB) {
+              return -1
+            }
+
+            return 0
+          
           }).map((item,index) => (
             <>
               <ListItem key={item.id} alignItems="flex-start" sx={{margin: '1em 0'}}>
