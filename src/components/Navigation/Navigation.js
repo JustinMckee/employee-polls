@@ -43,7 +43,6 @@ const Navigation = () => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-
     setDrawer(open);
   };
 
@@ -77,7 +76,7 @@ const Navigation = () => {
           {links.map((link, index) => (
             <ListItem key={link.text} id={link.text} sx={{minWidth:'400px'}} disablePadding>
 
-                <ListItemButton component={Link} to={link.to}>
+                <ListItemButton component={Link} to={link.to} onClick={() => setDrawer(!drawer)}>
 
                     <ListItemText primary={link.text} />
 
