@@ -9,7 +9,6 @@ import Box from '@mui/material/Box';
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
 
 // My components
 import NewQuestion from './NewQuestion';
@@ -32,7 +31,7 @@ const Dashboard = ({users,questions,authedUser}) => {
 
   return (
     <div>
-      <h1>Polls by {users[authedUser].name}</h1>
+      <h1 data-testid="title">{`Polls by ${users[authedUser].name}`}</h1>
       <Avatar
         alt={users[authedUser].name}
         src={users[authedUser].avatarURL}
@@ -68,12 +67,9 @@ const Dashboard = ({users,questions,authedUser}) => {
                   return 0;
                 })
                 .map((q, index) => (
-                  <>
-                    <ListItem alignItems="flex-start" id={q.id} key={q.id}>
+                    <ListItem alignItems="flex-start" key={q.id}>
                       <NewQuestion question={q} />
                     </ListItem>
-                    <Divider variant="inset" component="li" />
-                  </>
                 ))
               }
             </List>
@@ -98,12 +94,9 @@ const Dashboard = ({users,questions,authedUser}) => {
                   return 0;
                 })
                 .map((a, index) => (
-                  <>
-                    <ListItem alignItems="flex-start" id={a} key={a}>
+                    <ListItem alignItems="flex-start" key={index}>
                       <Answered answer={questions[a]} />
                     </ListItem>
-                    <Divider variant="inset" component="li" />
-                  </>
                 ))
               }
             </List>

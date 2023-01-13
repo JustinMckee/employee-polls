@@ -18,6 +18,7 @@ const Answered = ({answer,users}) => {
         primary={
           <h1 style={{margin: '0 0 .3em', fontSize: '1.3em'}}>Would you rather&hellip;</h1>
         }
+        disableTypography={true}
         secondary={
           <>
             <Typography
@@ -35,7 +36,7 @@ const Answered = ({answer,users}) => {
               }}>
               <Typography
                 sx={{ display: 'block',fontWeight:'bold' }}
-                component="p"
+                component="span"
                 variant="body1"
                 color="text.primary"
                 >
@@ -49,7 +50,7 @@ const Answered = ({answer,users}) => {
               
               <Typography
                 sx={{ display: 'block',fontWeight:'bold' }}
-                component="p"
+                component="span"
                 variant="body1"
                 color="text.primary"
                 >

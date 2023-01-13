@@ -31,7 +31,7 @@ const Login = ({dispatch,authedUser}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const result = await dispatch(handleSetAuthedUser(fields));
+      await dispatch(handleSetAuthedUser(fields));
     } catch (e) {
       console.error('ERROR', e);
     }
@@ -74,6 +74,7 @@ const Login = ({dispatch,authedUser}) => {
                 label="Username"
                 onChange={handleChange}
                 fullwidth="true"
+                inputProps={{ "data-testid": "username" }}
                 />
               <TextField
                 required
@@ -84,6 +85,7 @@ const Login = ({dispatch,authedUser}) => {
                 label="Password"
                 onChange={handleChange}
                 fullwidth="true"
+                inputProps={{ "data-testid": "password" }}
                 />
               <Button
                 className="btn"
@@ -91,10 +93,11 @@ const Login = ({dispatch,authedUser}) => {
                 disabled={(fields.password === '')}
                 variant="contained"
                 size="large"
+                data-testid="submit"
                 >
                 LOGIN
                 </Button>
-                <Button size="small" onClick={handleAutoFill} >Autofill</Button>
+                <Button size="small" onClick={handleAutoFill}>Autofill</Button>
               </Stack>
           </Box>
         )}
