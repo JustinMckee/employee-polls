@@ -1,4 +1,4 @@
-import {render,waitFor} from '@testing-library/react';
+import {render,waitFor,screen} from '@testing-library/react';
 import * as React from 'react';
 import { Provider } from 'react-redux'
 import reducer from '../../reducers';
@@ -6,32 +6,40 @@ import middleware from '../../middleware';
 // import App from './App';
 import {createStore} from 'redux';
 import Dashboard from './Dashboard';
-import {handleSetAuthedUser} from '../../actions/authedUser';
+import {setAuthedUser} from '../../actions/authedUser';
+import { receiveQuestions } from '../../actions/questions';
+import { receiveUsers } from '../../actions/users';
+import {
+    MemoryRouter
+  } from "react-router-dom";
+import { getInitialData } from "../../utils/api";
+import { act } from "react-dom/test-utils";
+
+const store = createStore(reducer, middleware);
 
 describe('Dashboard', () => {
 
-    let store;
-    let logged;
-    const dispatch = jest.fn();
+    const sarah = { username: 'sarahedo', password: 'password123', };
 
-    beforeAll(async () => {
-        store = await createStore(reducer, middleware);
-        logged = await dispatch(handleSetAuthedUser({
-            username: 'sarahedo',
-            password: 'password123',
-        }));
-    });
-    
     it('Will render a list', async () => {
-        
-        const {component} = render(
-                <Provider store={store}>
-                    <Dashboard />
-                </Provider>
-            );
 
-    
-       await waitFor(() => expect(component.getByTestId('title')).toBeTruthy());
-        
+        await getInitialData()
+            .then((data) => act(() => {
+                store.dispatch(receiveQuestions(data.questions));
+                store.dispatch(receiveUsers(data.users));
+                store.dispatch(setAuthedUser('sarahedo'));
+            }))
+            .then(() => {
+                render(
+                    <Provider store={store}>
+                        <MemoryRouter>
+                            <Dashboard />
+                        </MemoryRouter>
+                    </Provider>
+                )
+            })
+            .then( () => expect(screen.getByTestId('title')).toBeInTheDocument())
+
     });
+        
 });

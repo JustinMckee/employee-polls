@@ -6,17 +6,16 @@ import {
 } from './_DATA';
 
 // Mimic reaching out to server for authentication instead of relying on users state slice.
-export function login (fields) {
+export function login(fields) {
   return new Promise((res) => {
-    res(_getUsers())
-  }).then((users) => {
-    if(!users[fields.username]) {
-      return null;
-    }
-    if(users[fields.username] && users[fields.username].password === fields.password) {
-      return users[fields.username].id;
-    }
-
+    _getUsers().then((users) => {
+      if (!users[fields.username]) {
+        res(null);
+      }
+      if (users[fields.username] && users[fields.username].password === fields.password) {
+        res(users[fields.username].id);
+      }
+    });
   });
 }
 

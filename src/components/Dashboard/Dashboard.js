@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 // Design system
 import Avatar from '@mui/material/Avatar';
@@ -14,7 +14,9 @@ import ListItem from '@mui/material/ListItem';
 import NewQuestion from './NewQuestion';
 import Answered from './Answered';
 
-const Dashboard = ({users,questions,authedUser}) => {
+const Dashboard = () => {
+
+  const { users, questions, authedUser } = useSelector(state => state);
 
   const [value, setValue] = useState(0);
 
@@ -127,13 +129,4 @@ const TabPanel = (props) => {
   );
 }
 
-const mapStateToProps = ({authedUser,questions,users}) => (
-  {
-    loading: authedUser !== null,
-    authedUser,
-    questions,
-    users
-  }
-)
-
-export default connect(mapStateToProps)(Dashboard);
+export default Dashboard;

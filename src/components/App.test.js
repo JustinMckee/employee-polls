@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import reducer from '../reducers';
 import middleware from '../middleware';
 import App from './App';
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import {createStore} from 'redux';
 
 let store;
@@ -19,9 +19,9 @@ describe('App matches snapshot', () => {
         
         const {component} = render(
             <Provider store={store}>
-                <BrowserRouter>
+                <MemoryRouter>
                     <App/>
-                </BrowserRouter>
+                </MemoryRouter>
             </Provider>
         );
         await expect(component).toMatchSnapshot();
