@@ -41,4 +41,27 @@ describe("Dashboard event test", () => {
 
   });
 
+  it("Will not login user", async () => {
+
+    const component = render(
+         
+          <Provider store={store}>
+            <MemoryRouter>
+            <App />
+            </MemoryRouter> 
+          </Provider>
+    );
+
+    const username = component.getByTestId('username');
+    const password = component.getByTestId('password');
+    const submit = component.getByTestId('submit');
+  
+    fireEvent.change(username, { target: { value: "notauser" } });
+    fireEvent.change(password, { target: { value: "password123" } });
+    fireEvent.click(submit);
+
+    await waitFor(() => expect(store.authedUser === null));
+
+  });
+
 });

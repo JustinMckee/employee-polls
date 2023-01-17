@@ -28,6 +28,7 @@ const User = ({dispatch,authedUser,users}) => {
   };
 
   const handleLogout = () => {
+    console.log('Logging out!');
     dispatch(removeAuthedUser())
   }
 
@@ -40,6 +41,7 @@ const User = ({dispatch,authedUser,users}) => {
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
+          data-testid="usernav"
           avatar={<Avatar src={ users[authedUser].avatarURL ?? null}/>}
           label={authedUser}
           variant="outlined"
@@ -56,7 +58,7 @@ const User = ({dispatch,authedUser,users}) => {
           }}
           >
           <MenuItem id="1" to={'/test'} onClick={() => (navigate('/'))}>Dashboard</MenuItem>
-          <MenuItem id="2" onClick={handleLogout}>Logout</MenuItem>
+          <MenuItem id="2" onClick={handleLogout} data-testid="logout">Logout</MenuItem>
         </Menu>
       </Stack>
     )

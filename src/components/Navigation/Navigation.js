@@ -56,7 +56,7 @@ const Navigation = () => {
   return (
     <Box component="nav" sx={{ padding: '.5em', borderBottom: '1px solid #EFEFEF' }}>
       <div className="utility">
-        <IconButton onClick={toggleDrawer(true)}>
+        <IconButton onClick={toggleDrawer(true)} data-testid="open-nav">
           <MenuOpenIcon />
         </IconButton>
         <User />
@@ -76,7 +76,7 @@ const Navigation = () => {
           {links.map((link, index) => (
             <ListItem key={link.text} id={link.text} sx={{minWidth:'400px'}} disablePadding>
 
-                <ListItemButton component={Link} to={link.to} onClick={() => setDrawer(!drawer)}>
+                <ListItemButton component={Link} to={link.to} onClick={() => setDrawer(!drawer)} data-testid={`link-${index}`}>
 
                     <ListItemText primary={link.text} />
 
@@ -89,5 +89,4 @@ const Navigation = () => {
     </Box>
   )
 }
-
 export default Navigation;
