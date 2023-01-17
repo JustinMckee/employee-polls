@@ -53,7 +53,8 @@ const Dashboard = () => {
               'You have no polls to answer.'
             )}
 
-            <List sx={{ width: '100%' }}>
+            {newQuestions && (
+              <List sx={{ width: '100%' }} data-testid="question-list">
               {
                 Object.values(questions)
                 .filter((q) => {
@@ -74,7 +75,8 @@ const Dashboard = () => {
                     </ListItem>
                 ))
               }
-            </List>
+              </List>
+            )}
           </TabPanel>
 
           <TabPanel value={value} index={1}>
@@ -83,7 +85,8 @@ const Dashboard = () => {
                 'You have no history to display.'
               )}
 
-            <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+            {users[authedUser].answers && (
+              <List sx={{ width: '100%', bgcolor: 'background.paper' }} data-testid="answer-list">
               {
                 Object.keys(users[authedUser].answers)
                 .sort((a,b) => {
@@ -102,6 +105,7 @@ const Dashboard = () => {
                 ))
               }
             </List>
+            )}
           </TabPanel>
 
         </Box>
