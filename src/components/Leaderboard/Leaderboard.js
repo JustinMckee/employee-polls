@@ -29,8 +29,7 @@ const Leaderboard = ({users}) => {
             return 0
           
           }).map((item,index) => (
-            <>
-              <ListItem key={item.id} alignItems="flex-start" sx={{margin: '1em 0'}}>
+              <ListItem key={index} alignItems="flex-start" sx={{margin: '1em 0'}}>
                 <ListItemAvatar sx={{display: 'inline-flex',marginRight:'1em'}}>
                   <Avatar sx={{ border: '1px solid #1976d2', borderStyle: 'inset solid', borderRadius: '50%', bgcolor: 'transparent', color: '#1976d2', marginRight: '.5em' }}>{index + 1}</Avatar>
                   <Avatar alt="Remy Sharp" src={item[1].avatarURL} />
@@ -46,9 +45,8 @@ const Leaderboard = ({users}) => {
                       <Chip label={Object.keys(item[1].answers).length + item[1].questions.length + ' Total'} sx={{bgcolor: '#1976d2',color: '#fff'}}size="small" />
                     </Stack>     
                   }/> 
+                  <Divider variant="inset" component="li"/>
               </ListItem>   
-              <Divider variant="inset" component="li"/>
-            </>
             ))
         }
       </List>
