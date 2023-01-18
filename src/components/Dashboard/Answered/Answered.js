@@ -9,6 +9,11 @@ import Typography from '@mui/material/Typography';
 
 const Answered = ({answer,users}) => {
 
+  const theDate = (timestamp) => {
+    const date = new Date(timestamp);
+    return date.toDateString();
+  } 
+
   return (
     <>
       <ListItemAvatar>
@@ -16,13 +21,20 @@ const Answered = ({answer,users}) => {
       </ListItemAvatar>
       <ListItemText
         primary={
-          <h1 style={{margin: '0 0 .3em', fontSize: '1.3em'}}>Would you rather&hellip;</h1>
+          <h1 style={{margin: '0 0 .2em', fontSize: '1.1em'}}>Would you rather&hellip;</h1>
         }
         disableTypography={true}
         secondary={
           <>
             <Typography
-              sx={{ display: 'inline' }}
+            sx={{ display: 'block', marginBottom: '.1em', color:'#a9a9a9',fontSize:'.8em'}}
+            component="span"
+            variant="body2"
+            >
+            {theDate(answer.timestamp)}
+          </Typography>
+            <Typography
+              sx={{ display: 'inline', fontSize:'.8em', }}
               component="span"
               variant="body2"
               color="text.light"

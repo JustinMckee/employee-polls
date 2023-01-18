@@ -11,6 +11,11 @@ import Typography from '@mui/material/Typography';
 
 const NewQuestion = ({questions,question,users}) => {
 
+  const theDate = (timestamp) => {
+    const date = new Date(timestamp);
+    return date.toDateString();
+  } 
+
   return (
     <ListItemButton
       component={Link}
@@ -25,10 +30,18 @@ const NewQuestion = ({questions,question,users}) => {
       </ListItemAvatar>
       <ListItemText
         primary={
-          <h1 style={{margin: '0 0 .3em', fontSize: '1.3em'}}>Would you rather&hellip;</h1>
+          <h1 style={{margin: '0', fontSize: '1.1em'}}>Would you rather&hellip;</h1>
         }
         secondary={
           <>
+            <Typography
+            sx={{ display: 'block', marginBottom: '.1em', color:'#a9a9a9',fontSize:'.8em'}}
+            component="span"
+            variant="body2"
+            color="text.light"
+            >
+            {theDate(question.timestamp)}
+          </Typography>
             <Typography
               sx={{ display: 'inline' }}
               component="span"
