@@ -6,6 +6,10 @@ Starting the app:
 
 `npm start`
 
+Running Jest Unit Tests
+
+`npm test`
+
 ## App Functionality
 
 - Login 
