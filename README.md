@@ -1,5 +1,11 @@
 # Employee Polls
 
+Starting the app:
+
+`npm install`
+
+`npm start`
+
 ## App Functionality
 
 - Login 
