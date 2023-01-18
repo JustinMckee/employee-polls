@@ -29,6 +29,7 @@ const User = ({dispatch,authedUser,users}) => {
 
   const handleLogout = () => {
     console.log('Logging out!');
+    setAnchorEl(null);
     dispatch(removeAuthedUser())
   }
 

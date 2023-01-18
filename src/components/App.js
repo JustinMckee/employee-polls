@@ -1,4 +1,4 @@
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, useLocation} from 'react-router-dom';
 import {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {handleInitialData} from '../actions/shared';
@@ -19,8 +19,11 @@ import NotFound from './NotFound';
 
 const App = (props) => {
 
+  const location = useLocation();
+
   useEffect(() => {
-    props.dispatch(handleInitialData());
+    if(props.authedUser)
+      props.dispatch(handleInitialData());
   },[props]);
 
   return (
@@ -58,10 +61,12 @@ const App = (props) => {
   );
 }
 
-const mapStateToProps = ({authedUser, users}) => (
+const mapStateToProps = ({authedUser, questions, users}) => (
   {
     loading: authedUser !== null,
-    authedUser
+    authedUser,
+    questions,
+    users
   }
 )
 
