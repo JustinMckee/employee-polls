@@ -1,4 +1,5 @@
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 import Percentage from '../../Percentage';
 
@@ -7,20 +8,27 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import ListItemButton from '@mui/material/ListItemButton';
 
-const Answered = ({answer,users,choice}) => {
+const Answered = ({answer,users,choice,questions}) => {
 
   const theDate = (timestamp) => {
     const date = new Date(timestamp);
     return date.toDateString();
   } 
 
-  console.log(answer, choice);
-
   return (
-    <>
+    <ListItemButton
+      component={Link}
+      sx={{alignItems: 'flex-start'}}
+      to={`/questions/${answer.id}`}
+      state={{
+        question: answer,
+        author: answer.author
+      }}
+      >
       <ListItemAvatar>
-        <Avatar alt="Remy Sharp" src={users[answer.author].avatarURL} />
+        <Avatar sx={{marginTop: '.5em'}} alt="Remy Sharp" src={users[answer.author].avatarURL} />
       </ListItemAvatar>
       <ListItemText
         primary={
@@ -86,13 +94,14 @@ const Answered = ({answer,users,choice}) => {
         }
         />
        
-    </>
+    </ListItemButton>
   )
 }
 
-const mapStateToProps = ({users}) => (
+const mapStateToProps = ({users,questions}) => (
   {
-    users
+    users,
+    questions,
   }
 )
 export default connect(mapStateToProps)(Answered);

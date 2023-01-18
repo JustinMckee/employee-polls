@@ -15,13 +15,13 @@ import { styled } from '@mui/material/styles';
 
 import './Question.scss';
 
-const Question = ({authedUser,dispatch,questions}) => {
-
-  const [answer,setAnswer] = useState('');
-
-  const location = useLocation();
+const Question = ({authedUser,dispatch,questions,users}) => {
 
   const params = useParams();
+
+  const [answer,setAnswer] = useState(users[authedUser].answers[params.id] ?? '');
+
+  const location = useLocation();
 
   if(!questions[params.id]) {
     return (
@@ -29,7 +29,7 @@ const Question = ({authedUser,dispatch,questions}) => {
     )
   }
 
-  const totalVotes = questions[location.state.question.id].optionOne.votes.length + questions[location.state.question.id].optionTwo.votes.length;
+  const totalVotes = questions[params.id].optionOne.votes.length + questions[params.id].optionTwo.votes.length;
 
   const handleClick = (event) => {
     let fauxInput = event.target.closest('.card-button');
@@ -59,14 +59,14 @@ const Question = ({authedUser,dispatch,questions}) => {
         marginBottom: '3em',
         }}>
         <Avatar
-          alt={location.state.author.name}
-          src={location.state.author.avatarURL}
+          alt={users[questions[params.id].author].name}
+          src={users[questions[params.id].author].avatarURL}
           sx={{width:50,height:50, marginRight: '1em'}}
           />
-          <span>By {location.state.author.name}</span>
+          <span>By {users[questions[params.id].author].name}</span>
       </Box>
       <form onSubmit={e => e.preventDefault()}>
-        <input type="hidden" id="option" name={location.state.question.id} value={answer} />
+        <input type="hidden" id="option" name={users[questions[params.id]]} value={answer} />
 
         {
         <Grid container spacing={{xs: 2, sm: 3, md: 5}}>
@@ -135,7 +135,8 @@ const mapStateToProps = ({authedUser,questions,users}) => (
   {
     loading: authedUser !== null,
     authedUser,
-    questions
+    questions,
+    users
   }
 );
 
