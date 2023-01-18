@@ -1,4 +1,4 @@
-import {Routes, Route, useLocation} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 import {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {handleInitialData} from '../actions/shared';
@@ -19,11 +19,8 @@ import NotFound from './NotFound';
 
 const App = (props) => {
 
-  const location = useLocation();
-
   useEffect(() => {
-    if(props.authedUser)
-      props.dispatch(handleInitialData());
+    props.dispatch(handleInitialData());
   },[props]);
 
   return (
@@ -45,28 +42,26 @@ const App = (props) => {
         }
         {
           props.authedUser && (
-            <Container>
-              <Routes>
-                <Route path="*" state={props} element={<NotFound />} />
-                <Route path="/" state={props} exact element={<Dashboard />} />
-                <Route path="/Leaderboard" exact element={<Leaderboard />} />
-                <Route path="/questions/:id" element={<Question/>} />
-                <Route path="/add" exact element={<Create />} />
-                <Route path="/login" element={<Login />} />
-              </Routes>
-            </Container>
+              <Container>
+                <Routes>
+                  <Route path="*" state={props} element={<NotFound />} />
+                  <Route path="/" state={props} exact element={<Dashboard />} />
+                  <Route path="/Leaderboard" exact element={<Leaderboard />} />
+                  <Route path="/questions/:id" element={<Question/>} />
+                  <Route path="/add" exact element={<Create />} />
+                  <Route path="/login" element={<Login />} />
+                </Routes>
+              </Container>
           )
         }
     </div>
   );
 }
 
-const mapStateToProps = ({authedUser, questions, users}) => (
+const mapStateToProps = ({authedUser, users}) => (
   {
     loading: authedUser !== null,
-    authedUser,
-    questions,
-    users
+    authedUser
   }
 )
 
