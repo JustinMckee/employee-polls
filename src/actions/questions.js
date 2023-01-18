@@ -1,6 +1,6 @@
 import { saveQuestionAnswer } from "../utils/api";
 import { saveQuestion } from '../utils/api';
-import {updateUserAnswers} from './users';
+import {updateUserAnswers, updateUserQuestions} from './users';
 import {showLoading, hideLoading} from 'react-redux-loading-bar';
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
@@ -48,8 +48,8 @@ export function handleAddQuestion(question) {
     dispatch(showLoading());
     return saveQuestion(question)
       .then((res) => {
-        console.log(res);
         dispatch(addQuestion(res))
+        dispatch(updateUserQuestions(res.author,res.qid))
         dispatch(hideLoading())
       })
       .catch((e) => {

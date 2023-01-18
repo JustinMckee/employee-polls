@@ -3,6 +3,7 @@ import {useState} from 'react';
 import { useNavigate } from "react-router-dom";
 
 import {handleAddQuestion} from '../../actions/questions';
+import { updateUserQuestions } from '../../actions/users';
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -21,7 +22,10 @@ const Create = ({authedUser,questions,users,dispatch}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(handleAddQuestion(fields));
+    await dispatch(handleAddQuestion(fields))
+    .then((res) => {
+      //dispatch(updateUserQuestions(fields.author, res.qid))
+    })
     navigate('/');
   }
 
