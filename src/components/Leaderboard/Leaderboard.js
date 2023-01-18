@@ -38,6 +38,7 @@ const Leaderboard = ({users}) => {
                   primary={
                     <h1 style={{margin: '0 0 .3em', fontSize: '1.3em'}}>{item[1].name}</h1>
                   }
+                  disableTypography={true}
                   secondary={
                     <Stack direction="row" spacing={1}>
                       <Chip label={Object.keys(item[1].answers).length + ' Answers'} size="small" sx={{borderColor:'#1976d2', color: '#1976d2'}} variant="outlined" />
@@ -45,7 +46,6 @@ const Leaderboard = ({users}) => {
                       <Chip label={Object.keys(item[1].answers).length + item[1].questions.length + ' Total'} sx={{bgcolor: '#1976d2',color: '#fff'}}size="small" />
                     </Stack>     
                   }/> 
-                  <Divider variant="inset" component="li"/>
               </ListItem>   
             ))
         }
