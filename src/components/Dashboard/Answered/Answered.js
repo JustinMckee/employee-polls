@@ -6,13 +6,16 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
 
-const Answered = ({answer,users}) => {
+const Answered = ({answer,users,choice}) => {
 
   const theDate = (timestamp) => {
     const date = new Date(timestamp);
     return date.toDateString();
   } 
+
+  console.log(answer, choice);
 
   return (
     <>
@@ -47,11 +50,14 @@ const Answered = ({answer,users}) => {
               margin: '1.5em 0',
               }}>
               <Typography
-                sx={{ display: 'block',fontWeight:'bold' }}
+                sx={{ display: 'block',fontWeight:'bold', position: 'relative' }}
                 component="span"
                 variant="body1"
                 color="text.primary"
                 >
+                  {choice === 'optionOne' && (
+                    <TaskAltIcon sx={{position: 'absolute', left: '-5px',transform: 'translateX(-100%)', color: 'rgb(25, 118, 210)'}}/>
+                  )}
                   {answer.optionOne['text'].charAt(0).toUpperCase() + answer.optionOne['text'].slice(1)}
               </Typography>
 
@@ -61,12 +67,15 @@ const Answered = ({answer,users}) => {
                 />
               
               <Typography
-                sx={{ display: 'block',fontWeight:'bold' }}
+                sx={{ display: 'block',fontWeight:'bold', position: 'relative', }}
                 component="span"
                 variant="body1"
                 color="text.primary"
                 >
-                   {answer.optionTwo['text'].charAt(0).toUpperCase() + answer.optionTwo['text'].slice(1)}
+                  {choice === 'optionTwo' && (
+                    <TaskAltIcon sx={{position: 'absolute', left: '-5px',transform: 'translateX(-100%)', color: 'rgb(25, 118, 210)'}}/>
+                  )}
+                  {answer.optionTwo['text'].charAt(0).toUpperCase() + answer.optionTwo['text'].slice(1)}
               </Typography>
               <Percentage 
                 qid={answer.id}

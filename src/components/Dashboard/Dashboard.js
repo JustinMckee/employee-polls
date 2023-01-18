@@ -84,23 +84,22 @@ const Dashboard = () => {
             {answeredQuestions === 0 && (
                 'You have no history to display.'
               )}
-
             {users[authedUser].answers && (
               <List sx={{ width: '100%', bgcolor: 'background.paper' }} data-testid="answer-list">
               {
-                Object.keys(users[authedUser].answers)
+                Object.entries(users[authedUser].answers)
                 .sort((a,b) => {
-                  if(questions[a].timestamp > questions[b].timestamp) {
+                  if(questions[a[0]].timestamp > questions[b[0]].timestamp) {
                     return -1
                   }
-                  if(questions[a].timestamp < questions[b].timestamp){
+                  if(questions[a[0]].timestamp < questions[b[0]].timestamp){
                     return 1
                   }
                   return 0;
                 })
                 .map((a, index) => (
                     <ListItem alignItems="flex-start" key={index}>
-                      <Answered answer={questions[a]} />
+                      <Answered answer={questions[a[0]]} choice={users[authedUser].answers[a[0]]} />
                     </ListItem>
                 ))
               }
