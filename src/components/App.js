@@ -27,6 +27,10 @@ const App = (props) => {
     <div className="App">
 
       <LoadingBar />
+
+      <header className="App-header">
+        <Navigation />
+      </header>
         {
           !props.authedUser && (
             <Container>
@@ -38,21 +42,16 @@ const App = (props) => {
         }
         {
           props.authedUser && (
-            <>
-              <header className="App-header">
-                <Navigation />
-              </header>
-              <Container>
-                <Routes>
-                  <Route path="*" state={props} element={<NotFound />} />
-                  <Route path="/" state={props} exact element={<Dashboard />} />
-                  <Route path="/Leaderboard" exact element={<Leaderboard />} />
-                  <Route path="/questions/:id" element={<Question/>} />
-                  <Route path="/add" exact element={<Create />} />
-                  <Route path="/login" element={<Login />} />
-                </Routes>
-              </Container>
-            </>
+            <Container>
+              <Routes>
+                <Route path="*" state={props} element={<NotFound />} />
+                <Route path="/" state={props} exact element={<Dashboard />} />
+                <Route path="/Leaderboard" exact element={<Leaderboard />} />
+                <Route path="/questions/:id" element={<Question/>} />
+                <Route path="/add" exact element={<Create />} />
+                <Route path="/login" element={<Login />} />
+              </Routes>
+            </Container>
           )
         }
     </div>

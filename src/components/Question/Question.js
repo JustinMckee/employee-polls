@@ -80,18 +80,18 @@ const Question = ({authedUser,dispatch,questions,users}) => {
               >
               <Item
                 className="card-button"
-                data-id={location.state.question.id}
+                data-id={params.id}
                 data-answer="optionOne"
                 onClick={handleClick}
                 data-selected={answer === 'optionOne'}
                 >
-                <h2>{location.state.question.optionOne.text.charAt(0).toUpperCase() + location.state.question.optionOne.text.slice(1)}</h2>
+                <h2>{questions[params.id].optionOne.text.charAt(0).toUpperCase() + questions[params.id].optionOne.text.slice(1)}</h2>
               </Item>
             </Button>
             {answer && (
               <div style={{marginTop:'1.5em'}}>
                  <Percentage 
-                  qid={location.state.question.id} option='optionOne'
+                  qid={params.id} option='optionOne'
                 />
               </div>
             )}
@@ -106,17 +106,17 @@ const Question = ({authedUser,dispatch,questions,users}) => {
               >
               <Item
                 className="card-button"
-                data-id={location.state.question.id}
+                data-id={params.id}
                 data-answer="optionTwo"
                 onClick={handleClick}
                 data-selected={answer === 'optionTwo'}
                 >
-                <h2>{location.state.question.optionTwo.text.charAt(0).toUpperCase() + location.state.question.optionTwo.text.slice(1)}</h2>
+                <h2>{questions[params.id].optionTwo.text.charAt(0).toUpperCase() + questions[params.id].optionTwo.text.slice(1)}</h2>
               </Item>
             </Button>
             {answer && (
               <div style={{marginTop:'1.5em'}}>
-                <Percentage qid={location.state.question.id} option='optionTwo' />
+                <Percentage qid={params.id} option='optionTwo' />
               </div>
             )}
           </Grid>
